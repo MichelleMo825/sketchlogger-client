@@ -1,4 +1,4 @@
-import React, {Component, Fragment, createRef} from 'react';
+import React, {Component, Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {imageURL} from '../util/connect';
@@ -18,13 +18,14 @@ import {connect} from 'react-redux';
 import {logoutUser} from '../redux/actions/userAction';
 
 const styles = (theme) => ({
-  root: {top: '0', margin: '0'},
+  root: {top: '0', margin: '0', width: '100%'},
   toolbar: {
     display: 'flex',
     justifyContent: 'space-between',
-    margin: '0 -16px',
+    margin: '0',
     zIndex: '100',
     width: '100%',
+    padding: '0',
   },
   right: {
     display: 'flex',

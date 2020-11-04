@@ -6,7 +6,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -114,9 +113,9 @@ export class PostEditor extends Component {
         return file.name === images[i].name;
       });
 
-      if (repeated.length != 0) {
+      if (repeated.length !== 0) {
         errors.files = `file "${images[i].name}" is already uploaded`;
-      } else if (files.length + image.length == 9) {
+      } else if (files.length + image.length === 9) {
         errors.files = 'Only 9 images can be uploaded in each post';
       } else {
         files.push(images[i]);
@@ -133,7 +132,7 @@ export class PostEditor extends Component {
 
   handleDeleteImageOnClick = (id) => {
     const images = this.state.images.filter((img) => {
-      return img.id != id;
+      return img.id !== id;
     });
 
     this.setState({images: images});
@@ -148,17 +147,21 @@ export class PostEditor extends Component {
     const tags = this.state.tags;
     const errors = this.state.errors;
     let newTag = '';
-    if (e.keyCode == 13 && e.target.value) {
+    if (e.keyCode === 13 && e.target.value) {
       newTag = e.target.value;
       const repeated = tags.filter((tag) => {
         return tag === newTag;
       });
 
-      if (repeated.length == 0) {
-        tags.push(newTag.replace(' ', ''));
-        this.setState({tags: tags});
-        e.target.value = '';
-        errors.tags = '';
+      if (repeated.length === 0) {
+        if (newTag.length <= 50) {
+          tags.push(newTag.replace(' ', ''));
+          this.setState({tags: tags});
+          e.target.value = '';
+          errors.tags = '';
+        } else {
+          errors.tags = `Only 50 characters are allowed in one tag`;
+        }
       } else {
         errors.tags = `Tag "${e.target.value}" already exist`;
       }
@@ -176,6 +179,7 @@ export class PostEditor extends Component {
     const formData = new FormData();
     this.state.files.map((file) => {
       formData.append('file', file, file.name);
+      return null;
     });
 
     const data = {
@@ -189,9 +193,9 @@ export class PostEditor extends Component {
     };
 
     if (
-      this.state.files.length == 0 &&
-      this.state.description == '' &&
-      this.state.images.length == 0
+      this.state.files.length === 0 &&
+      this.state.description === '' &&
+      this.state.images.length === 0
     ) {
       let errors = this.state.errors;
       errors.general =
@@ -236,6 +240,7 @@ export class PostEditor extends Component {
                       src={`${imageURL}${img.filename}`}
                       width='100%'
                       key={img.id}
+                      alt=''
                     />
                     <GridListTileBar
                       titlePosition='top'
@@ -265,7 +270,7 @@ export class PostEditor extends Component {
 
                 return (
                   <GridListTile key={file.id}>
-                    <img src={src} width='100%' />
+                    <img src={src} width='100%' alt='' />
                     <GridListTileBar
                       titlePosition='top'
                       actionIcon={

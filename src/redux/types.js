@@ -10,6 +10,8 @@ export const LOADING_UI = 'LOADING_UI';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const SET_SUCCEED = 'SET_SUCCEED';
 export const UNSET_SUCCEED = 'UNSET_SUCCEED';
+export const SET_LOGIN = 'SET_LOGIN';
+export const UNSET_LOGIN = 'UNSET_LOGIN';
 // Data reducer types
 export const SET_POSTS = 'SET_POSTS';
 export const SET_WORKS = 'SET_WORKS';
@@ -20,6 +22,9 @@ export const UNLIKE_POST = 'UNLIKE_POST';
 export const SET_USERDATA = 'SET_USERDATA';
 export const SET_TAGS = 'SET_TAGS';
 export const UPDATE_POST = 'UPDATE_POST';
+export const ADD_POST = 'ADD_POST';
+export const DELETE_POST = 'DELETE_POST';
+export const SET_FOLLOWUSERS = 'SET_FOLLOWUSERS';
 //Post reducer
 export const SET_OPEN = 'SET_OPEN';
 export const SET_CLOSE = 'SET_CLOSE';

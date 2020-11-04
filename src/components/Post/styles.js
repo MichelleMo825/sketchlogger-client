@@ -5,7 +5,20 @@ export const styles = (theme) => ({
     marginBottom: theme.spacing(10),
   },
   paper: {
+    padding: '0',
+
+    [theme.breakpoints.down('xs')]: {
+      padding: '0',
+
+      '& .MuiDialogContent-dividers': {
+        padding: '0 !important',
+      },
+    },
+  },
+
+  container: {
     padding: theme.spacing(2),
+    paddingBottom: 0,
 
     [theme.breakpoints.down('xs')]: {
       padding: '0',
@@ -75,6 +88,7 @@ export const styles = (theme) => ({
         maxHeight: '100%',
       },
     },
+
     '& img': {
       objectFit: 'cover',
       height: '100%',
@@ -199,5 +213,29 @@ export const styles = (theme) => ({
     [theme.breakpoints.down('xs')]: {
       display: 'None',
     },
+  },
+
+  comments: {
+    maxHeight: 'calc(50vh)',
+    overflowY: 'auto',
+  },
+
+  commentInput: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+
+  submitComment: {
+    display: 'flex',
+    justifyContent: 'space-between',
+
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+
+  noComments: {
+    color: theme.palette.secondary.light,
+    textAlign: 'center',
+    padding: theme.spacing(2),
   },
 });

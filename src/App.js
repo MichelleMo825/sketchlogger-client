@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import {MuiThemeProvider} from '@material-ui/core/styles';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 //Redux
@@ -20,10 +20,11 @@ import Navbar from './components/Navbar';
 import Feedback from './components/Feedback';
 import PostEditor from './components/PostEditor';
 import IconMenu from './components/IconMenu';
+import MiniLogin from './components/MiniLogin';
 //others
 import {SET_AUTHENTICATED} from './redux/types';
 import {theme} from './util/style';
-import {IconButton} from '@material-ui/core';
+
 const token = localStorage.token;
 
 if (token) {
@@ -43,6 +44,7 @@ function App() {
         <Provider store={store}>
           <Router>
             <Navbar />
+            <IconMenu />
             <div className='container'>
               <Switch>
                 <Route path='/user/:username' component={user} />
@@ -56,7 +58,7 @@ function App() {
 
           <Feedback />
           <PostEditor />
-          <IconMenu />
+          <MiniLogin />
         </Provider>
       </MuiThemeProvider>
     </div>

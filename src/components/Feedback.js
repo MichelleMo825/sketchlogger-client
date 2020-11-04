@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 //mui
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import Slide from '@material-ui/core/Slide';
 //redux
 import {connect} from 'react-redux';
 import store from '../redux/store';
@@ -18,6 +19,10 @@ export class Feedback extends Component {
     });
   }
 
+  transitionleft = (props) => {
+    return <Slide {...props} direction='right' />;
+  };
+
   handleCloseFeedback = () => {
     store.dispatch({type: CLEAR_ERRORS});
   };
@@ -27,14 +32,11 @@ export class Feedback extends Component {
         <Snackbar
           open={this.state.open}
           autoHideDuration={6000}
-          onClose={this.handleCloseFeedback}>
-          <MuiAlert
-            severity='success'
-            variant='filled'
-            onClose={this.handleCloseFeedback}>
-            {this.props.UI.successMessage}
-          </MuiAlert>
-        </Snackbar>
+          onClose={this.handleCloseFeedback}
+          message={this.props.UI.successMessage}
+          TransitionComponent={this.transitionleft}
+          anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+        />
       </div>
     );
   }

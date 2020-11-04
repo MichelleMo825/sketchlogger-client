@@ -8,16 +8,19 @@ import {
   UPDATE_POST,
   SET_WORKS,
   SET_LIKES,
+  ADD_POST,
+  DELETE_POST,
+  SET_FOLLOWUSERS,
 } from '../types';
 
 const initialState = {
-  user: {},
+  user: {id: undefined},
   posts: [],
   likes: [],
   works: [],
-  loading: false,
   tags: [],
-  finishdLoading: false,
+  followUsers: [],
+  loading: false,
 };
 
 export default function (state = initialState, action) {
@@ -27,14 +30,31 @@ export default function (state = initialState, action) {
         ...state,
         posts: action.payload,
         loading: false,
-        finishedLoading: true,
+      };
+
+    case ADD_POST:
+      if (
+        state.user.id === action.payload.user_id ||
+        state.user.id === undefined
+      ) {
+        state.posts = [action.payload, ...state.posts];
+      }
+      return {
+        ...state,
+      };
+    case DELETE_POST:
+      const delete_post_index = state.posts.findIndex(
+        (post) => post.id === action.payload
+      );
+      state.posts.splice(delete_post_index, 1);
+      return {
+        ...state,
       };
     case SET_WORKS:
       return {
         ...state,
         loading: false,
         works: action.payload,
-        finishedLoading: true,
       };
 
     case SET_LIKES:
@@ -42,13 +62,11 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
         likes: action.payload,
-        finishedLoading: true,
       };
     case LOADING_DATA:
       return {
         ...state,
         loading: true,
-        finishedLoading: false,
       };
 
     case LIKE_POST:
@@ -67,16 +85,12 @@ export default function (state = initialState, action) {
         ...state,
       };
     case UNLIKE_POST:
-      let likeIndex = state.posts.findIndex(
-        (post) => post.id === action.payload.id
-      );
-      state.posts[likeIndex] = action.payload;
+      let j = state.posts.findIndex((post) => post.id === action.payload.id);
+      state.posts[j] = action.payload;
 
-      likeIndex = state.likes.findIndex(
-        (post) => post.id === action.payload.id
-      );
+      j = state.likes.findIndex((post) => post.id === action.payload.id);
 
-      state.likes[likeIndex] = action.payload;
+      state.likes[j] = action.payload;
 
       return {
         ...state,
@@ -95,11 +109,17 @@ export default function (state = initialState, action) {
       };
 
     case UPDATE_POST:
-      const i = state.posts.findIndex((post) => post.id === action.payload.id);
-      state.posts[i] = action.payload;
+      const k = state.posts.findIndex((post) => post.id === action.payload.id);
+      state.posts[k] = action.payload;
       state.tags = getTags(state.posts);
       return {
         ...state,
+      };
+    case SET_FOLLOWUSERS:
+      return {
+        ...state,
+        followUsers: action.payload,
+        loading: false,
       };
 
     default:
@@ -117,7 +137,9 @@ const getTags = (posts) => {
         tags.add(tag);
         tagIds.add(tag.id);
       }
+      return null;
     });
+    return null;
   });
 
   return [...tags];

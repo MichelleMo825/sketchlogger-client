@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import {imageURL} from '../../util/connect';
 import ChangePassword from './components/ChangePassword';
 //MUI
@@ -323,6 +323,7 @@ export class Settings extends Component {
   };
   render() {
     const {classes} = this.props;
+
     return (
       <div className={classes.root}>
         <h1>Settings</h1>

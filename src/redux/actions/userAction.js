@@ -5,32 +5,31 @@ import {
   LOADING_UI,
   SET_UNAUTHENTICATED,
   SET_SUCCEED,
+  SET_FOLLOWUSERS,
 } from '../types';
 import axios from 'axios';
-
+import request from '../../util/request';
+import {getUserInfo} from './dataAction';
 export const loginUser = (data, history) => (dispatch) => {
   dispatch({type: LOADING_UI});
 
-  axios
-    .post('login', data)
-    .then((res) => {
-      console.log(res.data);
-      const token = `Bearer ${res.data.token}`;
-      localStorage.setItem('token', token);
-      axios.defaults.headers.common['Authorization'] = token;
-      dispatch(getUserData());
-      dispatch({type: CLEAR_ERRORS});
-      history.push('/');
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data,
-      });
-    });
+  request({method: 'post', url: '/login', data: data}).then((data) => {
+    const token = `Bearer ${data.token}`;
+    localStorage.setItem('token', token);
+    axios.defaults.headers.common['Authorization'] = token;
+    dispatch(getUserData());
+    dispatch({type: CLEAR_ERRORS});
+    if (history) {
+      if (history.location.pathname === '/login') {
+        history.push('/');
+      }
+    }
+  });
+
+  console.log(history);
 };
 
-export const logoutUser = (history) => (dispatch) => {
+export const logoutUser = () => (dispatch) => {
   dispatch({type: LOADING_UI});
 
   localStorage.removeItem('token');
@@ -91,4 +90,36 @@ export const getUserData = () => (dispatch) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+export const getFollowers = (username) => (dispatch) => {
+  dispatch({type: LOADING_UI});
+
+  request({method: 'get', url: `/user/follower?username=${username}`}).then(
+    (data) => {
+      dispatch({type: SET_FOLLOWUSERS, payload: data.users});
+    }
+  );
+};
+
+export const getFollowings = (username) => (dispatch) => {
+  dispatch({type: LOADING_UI});
+
+  request({method: 'get', url: `/user/following?username=${username}`}).then(
+    (data) => {
+      dispatch({type: SET_FOLLOWUSERS, payload: data.users});
+    }
+  );
+};
+
+export const follow = (id, username) => (dispatch) => {
+  request({method: 'post', url: `/user/follow?id=${id}`}).then(() => {
+    dispatch(getUserData());
+  });
+};
+
+export const unfollow = (id) => (dispatch) => {
+  request({method: 'delete', url: `/user/follow?id=${id}`}).then(() => {
+    dispatch(getUserData());
+  });
 };

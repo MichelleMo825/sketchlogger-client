@@ -1,13 +1,13 @@
-import {fade} from '@material-ui/core/styles/colorManipulator';
 const styles = (theme) => ({
   root: {
     maxWidth: '800px',
     margin: '0 auto',
     width: '100%',
+    paddingBottom: '80px',
   },
 
   userInfo: {
-    // paddingTop: theme.spacing(6),
+    paddingTop: theme.spacing(6),
 
     '& .MuiGrid-root': {},
 
@@ -67,21 +67,11 @@ const styles = (theme) => ({
     '& .MuiDivider-root': {
       height: theme.spacing(3),
       margin: theme.spacing(2),
-      // [theme.breakpoints.down('xs')]: {
-      //   margin: theme.spacing(1.5),
-      // },
+
+      [theme.breakpoints.down('xs')]: {
+        margin: 0,
+      },
     },
-  },
-
-  follow: {
-    textAlign: 'center',
-    // padding: theme.spacing(1),
-  },
-
-  followtext: {
-    fontWeight: '500',
-    fontSize: theme.spacing(1.5),
-    letterSpacing: '2px',
   },
 
   followButton: {
@@ -92,11 +82,15 @@ const styles = (theme) => ({
   },
 
   tabs: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(3),
     '& .MuiTab-root': {
       width: 'calc(100% / 3)',
       borderBottom: '1px solid ',
       borderBottomColor: theme.palette.secondary.light,
+    },
+
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.spacing(2),
     },
   },
 
@@ -117,80 +111,46 @@ const styles = (theme) => ({
     },
   },
 
-  gallery: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-
-  work: {
-    width: '32%',
-
-    [theme.breakpoints.down('xs')]: {
-      width: '49.5%',
-    },
-
-    '& img': {
-      marginTop: theme.spacing(0.5),
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-    },
-  },
-
-  data: {
-    [theme.breakpoints.down('xs')]: {
-      paddingTop: theme.spacing(5),
-    },
-  },
-
   tags: {
     position: 'sticky',
     top: '100px',
+
     [theme.breakpoints.down('xs')]: {
       display: 'none',
+    },
+  },
+  tagSearch: {
+    display: 'none',
+    [theme.breakpoints.down('xs')]: {
+      '& .MuiInput-root': {
+        backgroundColor: '#333',
+        padding: theme.spacing(1),
+        color: '#fff',
+      },
+      display: 'block',
+      margin: '0 0 8px 0',
     },
   },
 
   posts: {
     display: 'grid',
-    '& .MuiGrid-root': {
-      [theme.breakpoints.down('xs')]: {
-        paddingTop: theme.spacing(2),
-        gridColumn: '1',
-        gridRow: '1',
-        // zIndex: '1',
-      },
+  },
+
+  data: {
+    [theme.breakpoints.down('xs')]: {
+      paddingTop: theme.spacing(1),
     },
   },
 
   mobileTags: {
-    gridColumn: '1',
-    gridRow: '1',
-    '& .MuiAccordion-root': {
-      margin: '6px 2.5%',
-      padding: '0 8px',
-      width: '90%',
-      backgroundColor: fade(theme.palette.primary.dark, 0.9),
-      color: theme.palette.primary.contrastText,
-      zIndex: '10',
-      // position: 'absolute',
-      position: 'sticky',
-      top: '90px',
-    },
-
-    '& .MuiIconButton-label': {
-      color: theme.palette.primary.contrastText,
-    },
-
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  mobileStickyTags: {
-    gridColumn: '1',
-    gridRow: '1',
     position: 'sticky',
+    top: '90px',
+    zIndex: '1',
+    margin: '-8px 0',
+
+    '& .MuiList-root': {
+      width: '100%',
+    },
   },
 
   tag: {

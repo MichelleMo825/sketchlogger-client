@@ -66,10 +66,7 @@ class login extends Component {
     });
   };
   render() {
-    const {
-      classes,
-      UI: {loading},
-    } = this.props;
+    const {classes} = this.props;
     return (
       <div className='container'>
         <Grid container spacing={2}>

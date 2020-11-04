@@ -11,7 +11,7 @@ const styles = (theme) => ({
 });
 export class TabPenal extends Component {
   render() {
-    const {classes, children, value, index, ...other} = this.props;
+    const {classes, children, value, index} = this.props;
     return (
       <div className={value === index ? classes.show : classes.hidden}>
         {children}
