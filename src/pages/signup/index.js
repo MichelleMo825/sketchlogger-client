@@ -19,6 +19,7 @@ const styles = (theme) => ({
   form: {
     minWidth: '350px',
     textAlign: 'center',
+    paddingTop: theme.spacing(2),
   },
   textField: {
     margin: '10px 0',

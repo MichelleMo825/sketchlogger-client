@@ -15,10 +15,14 @@ import {connect} from 'react-redux';
 import {loginUser} from '../redux/actions/userAction';
 
 const styles = (theme) => ({
+  container: {
+    minWidth: '350px',
+    width: '100%',
+    margin: 'auto',
+  },
   form: {
     textAlign: 'center',
-    minWidth: '350px',
-    padding: '50px',
+    padding: theme.spacing(2),
   },
   textField: {
     margin: '10px 0',
@@ -69,69 +73,63 @@ class login extends Component {
     const {classes} = this.props;
     return (
       <div className='container'>
-        <Grid container spacing={2}>
-          <Grid item sm></Grid>
-          <Grid item sm xs={12}>
-            <form className={classes.form} onSubmit={this.onSubmit}>
-              <h1>Login</h1>
+        <form className={classes.form} onSubmit={this.onSubmit}>
+          <h1>Login</h1>
 
-              <TextField
-                label='Email'
-                id='email'
-                name='email'
-                type='email'
-                value={this.state.email}
-                onChange={this.handleChange}
-                fullWidth
-                className={classes.textField}
-                helperText={this.state.errors.email}
-                error={this.state.errors.email ? true : false}
-              />
+          <TextField
+            label='Email'
+            id='email'
+            name='email'
+            type='email'
+            value={this.state.email}
+            onChange={this.handleChange}
+            fullWidth
+            className={classes.textField}
+            helperText={this.state.errors.email}
+            error={this.state.errors.email ? true : false}
+          />
 
-              <TextField
-                label='Password'
-                id='password'
-                name='password'
-                type='password'
-                value={this.state.password}
-                onChange={this.handleChange}
-                fullWidth
-                className={classes.textField}
-                helperText={this.state.errors.password}
-                error={this.state.errors.password ? true : false}
-              />
-              <div className={classes.others}>
-                <small>
-                  <Link color='secondary' to='signup'>
-                    Signup
-                  </Link>
-                </small>
-                <small>
-                  <Link color='secondary' to='/forgetPassword'>
-                    Forget Password
-                  </Link>
-                </small>
-              </div>
-              <Button
-                type='submit'
-                variant='contained'
-                color='primary'
-                className={classes.button}>
-                Login
-                {this.state.loading && (
-                  <CircularProgress className={classes.progress} size={30} />
-                )}
-              </Button>
+          <TextField
+            label='Password'
+            id='password'
+            name='password'
+            type='password'
+            value={this.state.password}
+            onChange={this.handleChange}
+            fullWidth
+            className={classes.textField}
+            helperText={this.state.errors.password}
+            error={this.state.errors.password ? true : false}
+          />
+          <div className={classes.others}>
+            <small>
+              <Link color='secondary' to='signup'>
+                Signup
+              </Link>
+            </small>
+            <small>
+              <Link color='secondary' to='/forgetPassword'>
+                Forget Password
+              </Link>
+            </small>
+          </div>
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            className={classes.button}>
+            Login
+            {this.state.loading && (
+              <CircularProgress className={classes.progress} size={30} />
+            )}
+          </Button>
 
-              <small>
-                <Link color='secondary' to={'/resendConfirmation'}>
-                  Verify Email
-                </Link>
-              </small>
-            </form>
-          </Grid>
-          <Grid item sm></Grid>
-        </Grid>
+          <small>
+            <Link color='secondary' to={'/resendConfirmation'}>
+              Verify Email
+            </Link>
+          </small>
+        </form>
       </div>
     );
   }
