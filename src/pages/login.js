@@ -16,12 +16,15 @@ import {loginUser} from '../redux/actions/userAction';
 
 const styles = (theme) => ({
   container: {
-    minWidth: '350px',
     width: '100%',
     margin: 'auto',
   },
   form: {
+    minWidth: '350px',
+    maxWidth: '400px',
+    margin: 'auto',
     textAlign: 'center',
+
     padding: theme.spacing(2),
   },
   textField: {
