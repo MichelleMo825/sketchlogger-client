@@ -34,6 +34,7 @@ export default function (state = initialState, action) {
     case LOADING_UI:
       return {
         ...state,
+        success: false,
         loading: true,
       };
 

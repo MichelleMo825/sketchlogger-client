@@ -15,6 +15,11 @@ import login from './pages/login';
 import signup from './pages/signup';
 import user from './pages/user';
 import settings from './pages/settings';
+import validateUser from './pages/validateUser';
+import resendConfirmation from './pages/resendConfirmation';
+import checkEmail from './pages/checkEmail';
+import forgetPassword from './pages/forgetPassword';
+import resetPassword from './pages/resetPassword';
 //components
 import Navbar from './components/Navbar';
 import Feedback from './components/Feedback';
@@ -49,9 +54,22 @@ function App() {
               <Switch>
                 <Route path='/user/:username' component={user} />
                 <Route exact path='/' component={home} />
-                <Route path='/settings' component={settings} />
+                <Route exact path='/settings' component={settings} />
                 <Route exact path='/login' component={login} />
                 <Route exact path='/signup' component={signup} />
+                <Route
+                  exact
+                  path='/resendConfirmation'
+                  component={resendConfirmation}
+                />
+                <Route exact path='/checkEmail' component={checkEmail} />
+                <Route
+                  exact
+                  path='/forgetPassword'
+                  component={forgetPassword}
+                />
+                <Route path='/validateUser/:token' component={validateUser} />
+                <Route path='/resetPassword/:token' component={resetPassword} />
               </Switch>
             </div>
           </Router>

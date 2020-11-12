@@ -6,10 +6,10 @@ import {
   SET_UNAUTHENTICATED,
   SET_SUCCEED,
   SET_FOLLOWUSERS,
+  UNSET_LOGIN,
 } from '../types';
 import axios from 'axios';
 import request from '../../util/request';
-import {getUserInfo} from './dataAction';
 export const loginUser = (data, history) => (dispatch) => {
   dispatch({type: LOADING_UI});
 
@@ -19,14 +19,13 @@ export const loginUser = (data, history) => (dispatch) => {
     axios.defaults.headers.common['Authorization'] = token;
     dispatch(getUserData());
     dispatch({type: CLEAR_ERRORS});
+    dispatch({type: UNSET_LOGIN});
     if (history) {
       if (history.location.pathname === '/login') {
         history.push('/');
       }
     }
   });
-
-  console.log(history);
 };
 
 export const logoutUser = () => (dispatch) => {
@@ -121,5 +120,55 @@ export const follow = (id, username) => (dispatch) => {
 export const unfollow = (id) => (dispatch) => {
   request({method: 'delete', url: `/user/follow?id=${id}`}).then(() => {
     dispatch(getUserData());
+  });
+};
+
+export const verifyUser = (token) => (dispatch) => {
+  dispatch({type: LOADING_UI});
+  request({method: 'post', url: `/verifyUser?token=${token}`}).then(() => {
+    dispatch({
+      type: SET_SUCCEED,
+      payload: 'Your email has validated, please login and enjoy',
+    });
+  });
+};
+
+export const signupUser = (data) => (dispatch) => {
+  dispatch({type: LOADING_UI});
+
+  request({method: 'post', url: `/signup`, data: data}).then(() => {
+    dispatch({type: SET_SUCCEED, payload: 'Request sent'});
+  });
+};
+
+export const resendConfirmationEmail = (email) => (dispatch) => {
+  dispatch({type: LOADING_UI});
+
+  request({method: 'post', url: `/resendConfirmation?email=${email}`}).then(
+    () => {
+      dispatch({type: SET_SUCCEED, payload: 'Email sent'});
+    }
+  );
+};
+
+export const sendForgetPasswordEmail = (email) => (dispatch) => {
+  dispatch({type: LOADING_UI});
+
+  request({method: 'post', url: `/forgetPassword?email=${email}`}).then(() => {
+    dispatch({type: SET_SUCCEED, payload: 'Email sent'});
+  });
+};
+export const resetUserPassword = (token, password) => (dispatch) => {
+  dispatch({type: LOADING_UI});
+
+  request({
+    method: 'post',
+    url: `/resetPassword?token=${token}`,
+    data: {password: password},
+  }).then(() => {
+    dispatch({
+      type: SET_SUCCEED,
+      payload: 'password reset successfully, please loging and enjoy',
+    });
   });
 };

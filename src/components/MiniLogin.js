@@ -67,7 +67,6 @@ export class MiniLogin extends Component {
     };
 
     this.props.loginUser(data, this.props.history);
-    store.dispatch({type: UNSET_LOGIN});
   };
   render() {
     const {classes, user, UI} = this.props;

@@ -107,7 +107,7 @@ class login extends Component {
                   </Link>
                 </small>
                 <small>
-                  <Link color='secondary' to='/login'>
+                  <Link color='secondary' to='/forgetPassword'>
                     Forget Password
                   </Link>
                 </small>
