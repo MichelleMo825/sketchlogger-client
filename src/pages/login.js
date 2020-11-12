@@ -122,6 +122,12 @@ class login extends Component {
                   <CircularProgress className={classes.progress} size={30} />
                 )}
               </Button>
+
+              <small>
+                <Link color='secondary' to={'/resendConfirmation'}>
+                  Verify Email
+                </Link>
+              </small>
             </form>
           </Grid>
           <Grid item sm></Grid>
