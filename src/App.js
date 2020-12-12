@@ -20,6 +20,7 @@ import resendConfirmation from './pages/resendConfirmation';
 import checkEmail from './pages/checkEmail';
 import forgetPassword from './pages/forgetPassword';
 import resetPassword from './pages/resetPassword';
+import post from './pages/post';
 //components
 import Navbar from './components/Navbar';
 import Feedback from './components/Feedback';
@@ -57,6 +58,7 @@ function App() {
                 <Route exact path='/settings' component={settings} />
                 <Route exact path='/login' component={login} />
                 <Route exact path='/signup' component={signup} />
+                <Route path='/post/:postId' component={post} />
                 <Route
                   exact
                   path='/resendConfirmation'

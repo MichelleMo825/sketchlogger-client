@@ -19,7 +19,12 @@ import MobileMenu from '../../components/MobileMenu';
 import store from '../../redux/store';
 import {NEW_POST, SET_LOGIN} from '../../redux/types';
 import {connect} from 'react-redux';
-import {getPosts, loadLikes, getUserInfo} from '../../redux/actions/dataAction';
+import {
+  getPosts,
+  loadLikes,
+  getUserInfo,
+  getFollowingPosts,
+} from '../../redux/actions/dataAction';
 
 export class Home extends Component {
   state = {
@@ -29,8 +34,15 @@ export class Home extends Component {
     expanded: false,
   };
   componentDidMount() {
-    this.props.getPosts();
     this.props.getUserInfo(this.props.user.username);
+
+    if (this.props.user.authenticated) {
+      this.setState({selected: 0});
+      this.props.getFollowingPosts();
+    } else {
+      this.setState({selected: 1});
+      this.props.getPosts();
+    }
   }
 
   handleNewPostClick = () => {
@@ -42,12 +54,13 @@ export class Home extends Component {
   };
 
   handleMenuItemClick = (index) => {
-    console.log(this.props.user.username);
     this.setState({selected: index, expanded: false});
     switch (index) {
       case 0:
+        this.props.getFollowingPosts();
+        break;
+      case 1:
         this.props.getPosts();
-        this.props.getUserInfo(this.props.user.username);
         break;
       case 3:
         this.props.loadLikes(this.props.user.username);
@@ -82,7 +95,7 @@ export class Home extends Component {
       <Fragment>
         <div className={classes.root}>
           <Grid container spacing={0} className={classes.container}>
-            <Grid item sm={2}>
+            <Grid item sm={2} lg={1}>
               <div className={classes.menu}>
                 <Menu
                   selected={this.state.selected}
@@ -163,6 +176,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
+  getFollowingPosts,
   getPosts,
   loadLikes,
   getUserInfo,

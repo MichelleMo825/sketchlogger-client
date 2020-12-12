@@ -10,6 +10,7 @@ import {
   UPDATE_POST,
   SET_SUCCEED,
   DELETE_POST,
+  LOAD_POST,
 } from '../types';
 import request from '../../util/request';
 export const getPosts = () => (dispatch) => {
@@ -30,6 +31,16 @@ export const getUserPosts = (username) => (dispatch) => {
       dispatch({type: SET_TAGS});
     }
   );
+};
+
+export const getFollowingPosts = (username) => (dispatch) => {
+  dispatch({type: LOADING_DATA});
+
+  request({method: 'get', url: `/followingPosts`}).then((data) => {
+    dispatch(setPosts(data.posts));
+
+    dispatch({type: SET_TAGS});
+  });
 };
 
 export const getUserWorks = (username) => (dispatch) => {
@@ -71,12 +82,14 @@ export const getUserInfo = (username) => (dispatch) => {
 export const likePost = (id) => (dispatch) => {
   request({method: 'post', url: `/post/like?id=${id}`}).then((data) => {
     dispatch({type: LIKE_POST, payload: data});
+    dispatch({type: LOAD_POST, payload: data});
   });
 };
 
 export const unlikePost = (id) => (dispatch) => {
   request({method: 'delete', url: `/post/like?id=${id}`}).then((data) => {
     dispatch({type: UNLIKE_POST, payload: data});
+    dispatch({type: LOAD_POST, payload: data});
   });
 };
 
@@ -87,6 +100,7 @@ export const commentPost = (id, content) => (dispatch) => {
     data: {content: content},
   }).then((data) => {
     dispatch({type: UPDATE_POST, payload: data});
+    dispatch({type: LOAD_POST, payload: data});
     dispatch({type: SET_SUCCEED, payload: 'comment posted successfully'});
   });
 };
@@ -97,6 +111,7 @@ export const deleteComment = (id) => (dispatch) => {
     url: `/post/comment?id=${id}`,
   }).then((data) => {
     dispatch({type: UPDATE_POST, payload: data});
+    dispatch({type: LOAD_POST, payload: data});
     dispatch({type: SET_SUCCEED, payload: 'comment deleted successfully'});
   });
 };
@@ -108,6 +123,7 @@ export const replyComment = (id, content) => (dispatch) => {
     data: {body: content},
   }).then((data) => {
     dispatch({type: UPDATE_POST, payload: data});
+    dispatch({type: LOAD_POST, payload: data});
     dispatch({type: SET_SUCCEED, payload: 'reply posted successfully'});
   });
 };
@@ -117,6 +133,7 @@ export const deleteReply = (id) => (dispatch) => {
     url: `/post/comment/reply?id=${id}`,
   }).then((data) => {
     dispatch({type: UPDATE_POST, payload: data});
+    dispatch({type: LOAD_POST, payload: data});
     dispatch({type: SET_SUCCEED, payload: 'reply deleted successfully'});
   });
 };

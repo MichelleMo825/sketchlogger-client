@@ -491,9 +491,7 @@ class Post extends Component {
 
                     {comments.length > 0 ? (
                       <div className={classes.comments}>
-                        {comments.map((c) => {
-                          return <Comment comment={c} key={c.id} />;
-                        })}
+                        <Comment comment={comments[0]} />
                       </div>
                     ) : (
                       <div className={classes.noComments}>
@@ -501,6 +499,16 @@ class Post extends Component {
                         You're going to be the first one to comment this post!
                       </div>
                     )}
+
+                    <div className={classes.details}>
+                      <Typography
+                        component={Link}
+                        href={`/post/${this.props.post.id}`}
+                        underline='none'
+                        color='primary'>
+                        All comments and likes
+                      </Typography>
+                    </div>
                   </Collapse>
                 ) : null}
               </div>

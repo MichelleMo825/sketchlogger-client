@@ -1,4 +1,4 @@
-import {SET_CLOSE, NEW_POST, EDIT_POST} from '../types';
+import {SET_CLOSE, NEW_POST, EDIT_POST, LOAD_POST} from '../types';
 
 const initialState = {
   open: false,
@@ -7,7 +7,9 @@ const initialState = {
   description: '',
   tags: [],
   images: [],
+  likes: [],
   errors: {},
+  comments: [],
 };
 
 export default function (state = initialState, action) {
@@ -20,6 +22,11 @@ export default function (state = initialState, action) {
         tags: [],
         images: [],
         errors: {},
+      };
+    case LOAD_POST:
+      return {
+        ...state,
+        ...action.payload,
       };
     case NEW_POST:
       return {

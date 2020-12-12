@@ -7,6 +7,7 @@ import {
   SET_SUCCEED,
   SET_FOLLOWUSERS,
   UNSET_LOGIN,
+  SET_AUTHENTICATED,
 } from '../types';
 import axios from 'axios';
 import request from '../../util/request';
@@ -20,10 +21,13 @@ export const loginUser = (data, history) => (dispatch) => {
     dispatch(getUserData());
     dispatch({type: CLEAR_ERRORS});
     dispatch({type: UNSET_LOGIN});
+    dispatch({type: SET_AUTHENTICATED});
     if (history) {
       if (history.location.pathname === '/login') {
         history.push('/');
       }
+    } else {
+      window.location.reload();
     }
   });
 };

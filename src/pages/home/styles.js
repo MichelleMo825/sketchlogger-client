@@ -46,6 +46,7 @@ const styles = (theme) => ({
     zIndex: '1',
     gridColumn: '1',
     gridRow: '1',
+    overflow: 'auto',
   },
 
   right: {

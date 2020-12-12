@@ -4,25 +4,25 @@ export const styles = (theme) => ({
   root: {
     marginBottom: theme.spacing(10),
   },
-  paper: {
-    padding: '0',
-
-    [theme.breakpoints.down('xs')]: {
-      padding: '0',
-
-      '& .MuiDialogContent-dividers': {
-        padding: '0 !important',
-      },
-    },
-  },
 
   container: {
     padding: theme.spacing(2),
-    paddingBottom: 0,
+    minWidth: '500px',
+    width: '50%',
+    maxWidth: '800px',
+    margin: 'auto',
+    paddingBottom: '80px',
 
     [theme.breakpoints.down('xs')]: {
       padding: '0',
+      paddingBottom: '100px',
+      width: '100%',
+      minWidth: '100%',
     },
+  },
+
+  avatar: {
+    marginRight: theme.spacing(2),
   },
   title: {
     display: 'flex',
@@ -93,6 +93,7 @@ export const styles = (theme) => ({
       objectFit: 'cover',
       height: '100%',
       width: '100%',
+      marginBottom: theme.spacing(1),
     },
   },
 
@@ -215,14 +216,21 @@ export const styles = (theme) => ({
     },
   },
 
-  // comments: {
-  //   maxHeight: 'calc(50vh)',
-  //   overflowY: 'auto',
-  // },
+  commentForm: {
+    position: 'sticky',
+    top: '68px',
+    backgroundColor: 'white',
+    zIndex: 1,
+  },
 
   commentInput: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+
+    '& .MuiInputBase-input': {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+    },
   },
 
   submitComment: {
@@ -231,22 +239,12 @@ export const styles = (theme) => ({
 
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
 
   noComments: {
     color: theme.palette.secondary.light,
     textAlign: 'center',
     padding: theme.spacing(2),
-  },
-
-  details: {
-    textAlign: 'center',
-    margin: 'auto',
-    padding: theme.spacing(2),
-
-    '& .MuiTypography-root': {
-      fontWeight: '500',
-      color: theme.palette.secondary.main,
-    },
   },
 });

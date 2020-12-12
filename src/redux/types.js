@@ -30,3 +30,4 @@ export const SET_OPEN = 'SET_OPEN';
 export const SET_CLOSE = 'SET_CLOSE';
 export const NEW_POST = 'NEW_POST';
 export const EDIT_POST = 'EDIT_POST';
+export const LOAD_POST = 'LOAD_POST';
