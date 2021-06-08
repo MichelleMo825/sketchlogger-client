@@ -2,22 +2,116 @@ import {fade} from '@material-ui/core/styles/colorManipulator';
 
 export const styles = (theme) => ({
   root: {
-    marginBottom: theme.spacing(10),
+    [theme.breakpoints.up('md')]: {
+      '& .MuiDialog-paperFullScreen': {
+        backgroundColor: 'transparent !important',
+      },
+    },
+  },
+
+  closeButton: {
+    top: theme.spacing(1),
+    right: theme.spacing(4),
+    position: 'fixed',
+    zIndex: 3,
+
+    color: 'white',
+    backgroundColor: theme.palette.primary.main,
+
+    [theme.breakpoints.down('xs')]: {
+      top: theme.spacing(2),
+      right: theme.spacing(2),
+      width: theme.spacing(2),
+      height: theme.spacing(2),
+    },
   },
 
   container: {
-    padding: theme.spacing(2),
-    minWidth: '500px',
-    width: '50%',
-    maxWidth: '800px',
+    padding: '0',
+
+    display: 'flex',
+    flexDirection: 'row',
+
+    maxWidth: '1200px',
+    width: '100%',
     margin: 'auto',
-    paddingBottom: '80px',
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+  },
+
+  images: {
+    position: 'sticky',
+    top: '0',
+    width: '100%',
+    maxWidth: '500px',
+    height: '100vh',
+    zIndex: 1,
+
+    gridColumn: 1,
+    gridRow: 1,
 
     [theme.breakpoints.down('xs')]: {
-      padding: '0',
-      paddingBottom: '100px',
+      backgroundColor: 'white',
+      maxWidth: '100%',
+      height: '100%',
+      top: '0',
+      minHeight: '30px',
+    },
+  },
+
+  imagesContainer: {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    backgroundColor: fade(theme.palette.primary.dark, 0.8),
+
+    [theme.breakpoints.down('xs')]: {
+      height: '250px',
+    },
+
+    '& img': {
+      position: 'absolute',
+      objectFit: 'contain',
+      height: '100%',
       width: '100%',
-      minWidth: '100%',
+      marginBottom: theme.spacing(1),
+      [theme.breakpoints.down('xs')]: {
+        objectFit: 'contain',
+      },
+    },
+  },
+
+  imagesControl: {
+    position: 'absolute',
+    bottom: '50%',
+    zIndex: 2,
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  controlButton: {
+    backgroundColor: fade(theme.palette.primary.main, 0.4),
+    color: 'white',
+    hoverColor: 'white',
+    border: '1.5px solid',
+    borderColor: 'white',
+    [theme.breakpoints.down('xs')]: {
+      width: theme.spacing(2),
+      height: theme.spacing(2),
+    },
+  },
+
+  details: {
+    gridColumn: 2,
+    gridRow: 1,
+    width: '100%',
+    padding: '80px 40px',
+    backgroundColor: 'white',
+    [theme.breakpoints.down('xs')]: {
+      padding: '0',
     },
   },
 
@@ -75,38 +169,10 @@ export const styles = (theme) => ({
     },
   },
 
-  content: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-
-    '& .MuiGridList-root': {
-      width: '300px',
-      maxHeight: '300px',
-      [theme.breakpoints.down('xs')]: {
-        width: '100%',
-        maxHeight: '100%',
-      },
-    },
-
-    '& img': {
-      objectFit: 'cover',
-      height: '100%',
-      width: '100%',
-      marginBottom: theme.spacing(1),
-    },
-  },
-
-  tile: {
-    height: 'calc(300px /3) !important',
-
-    [theme.breakpoints.down('xs')]: {
-      height: 'calc((100vw ) /3) !important',
-    },
-  },
   description: {
     whiteSpace: 'pre-line',
     position: 'relative',
+
     paddingTop: theme.spacing(2),
     paddingDown: theme.spacing(2),
 
@@ -119,11 +185,6 @@ export const styles = (theme) => ({
     [theme.breakpoints.down('xs')]: {
       paddingLeft: theme.spacing(2),
     },
-  },
-
-  expandButton: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
   },
 
   // overlay: {
@@ -217,10 +278,13 @@ export const styles = (theme) => ({
   },
 
   commentForm: {
-    position: 'sticky',
-    top: '68px',
-    backgroundColor: 'white',
-    zIndex: 1,
+    [theme.breakpoints.down('xs')]: {
+      position: 'sticky',
+      top: '250px',
+      backgroundColor: 'white',
+      zIndex: 1,
+      padding: '2px 0',
+    },
   },
 
   commentInput: {

@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {imageURL} from '../../util/connect';
 import {isMobile} from 'react-device-detect';
 import styles from './styles';
@@ -9,6 +9,7 @@ import Post from '../../components/Post';
 import MobileMenu from '../../components/MobileMenu';
 import FollowStatus from './components/FollowStatus';
 import WorkGallery from './components/WorkGallery';
+
 //mui
 import withStyle from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
@@ -42,7 +43,6 @@ import {
   follow,
   unfollow,
 } from '../../redux/actions/userAction';
-import FollowUsers from './components/FollowUsers';
 
 export class user extends Component {
   state = {
@@ -341,12 +341,6 @@ export class user extends Component {
             ))}
           </TabPenal>
         </div>
-
-        <FollowUsers
-          open={this.state.showFollows}
-          onClose={this.handleFololowClose}
-          type={this.state.followType}
-        />
       </div>
     );
   }

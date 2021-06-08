@@ -37,6 +37,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CommentIcon from '@material-ui/icons/Comment';
+import MoreRoundedIcon from '@material-ui/icons/MoreRounded';
 //redux
 import {connect} from 'react-redux';
 import {editPost} from '../../redux/actions/postAction';
@@ -45,6 +46,7 @@ import {
   unlikePost,
   commentPost,
   deletePost,
+  getPost,
 } from '../../redux/actions/dataAction';
 import DeleteComfirmation from './DeleteComfirmation';
 
@@ -56,10 +58,11 @@ class Post extends Component {
     url: '',
     openButton: false,
     expanded: false,
-    more: false,
+
     comment: '',
     commentError: '',
     openDelete: false,
+    openComment: false,
   };
 
   postRef = React.createRef();
@@ -165,8 +168,12 @@ class Post extends Component {
     }
   };
 
-  handleMoreClick = () => {
-    this.setState({more: !this.state.more});
+  handleCommentClick = () => {
+    this.setState({openComment: !this.state.openComment});
+  };
+
+  handleDetailsClick = () => {
+    this.props.getPost(this.props.post.id);
   };
 
   handleCommentChange = (e) => {
@@ -453,70 +460,54 @@ class Post extends Component {
                     <Button
                       className={classes.action}
                       color='primary'
-                      startIcon={<CommentIcon />}>
+                      startIcon={<CommentIcon />}
+                      onClick={this.handleCommentClick}>
                       {comment_count}
                     </Button>
+
+                    <Button
+                      className={classes.action}
+                      color='primary'
+                      startIcon={<MoreRoundedIcon />}
+                      onClick={this.handleDetailsClick}></Button>
                   </div>
                 </div>
+              </div>
+              <Divider />
+              {/* ###### more (likes and comments) ######*/}
 
-                {/* ###### more (likes and comments) ######*/}
+              <div className={classes.more}>
+                {' '}
+                {comments.length > 0 ? (
+                  <div className={classes.comments}>
+                    <Comment comment={comments[0]} />
+                  </div>
+                ) : null}
+                {this.state.openComment ? (
+                  <div className={classes.commentForm}>
+                    <TextField
+                      className={classes.commentInput}
+                      fullWidth
+                      // variant='outlined'
+                      label='Comment...'
+                      multiline
+                      onChange={this.handleCommentChange}
+                      value={this.state.comment}
+                      error={this.state.commentError ? true : false}
+                      helperText={this.state.commentError}
+                    />
 
-                {this.state.more ? (
-                  <Collapse in={this.state.more} className={classes.more}>
-                    <div className={classes.commentForm}>
-                      <TextField
-                        className={classes.commentInput}
-                        fullWidth
-                        // variant='outlined'
-                        label='Comment...'
-                        multiline
-                        onChange={this.handleCommentChange}
-                        value={this.state.comment}
-                        error={this.state.commentError ? true : false}
-                        helperText={this.state.commentError}
-                      />
-                      <div className={classes.submitComment}>
-                        <div />
-                        <Button
-                          style={{}}
-                          color='primary'
-                          onClick={this.handleCommentSubmit}
-                          variant='contained'>
-                          Submit
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* <Divider style={{marginTop: '8px', marginBottom: '8px'}} /> */}
-
-                    {comments.length > 0 ? (
-                      <div className={classes.comments}>
-                        <Comment comment={comments[0]} />
-                      </div>
-                    ) : (
-                      <div className={classes.noComments}>
-                        {' '}
-                        You're going to be the first one to comment this post!
-                      </div>
-                    )}
-
-                    <div className={classes.details}>
-                      <Typography
-                        component={Link}
-                        href={`/post/${this.props.post.id}`}
-                        underline='none'
-                        color='primary'>
-                        All comments and likes
-                      </Typography>
-                    </div>
-                  </Collapse>
+                    <Button
+                      style={{}}
+                      color='primary'
+                      onClick={this.handleCommentSubmit}
+                      variant='contained'
+                      className={classes.commentButton}>
+                      Submit
+                    </Button>
+                  </div>
                 ) : null}
               </div>
-
-              <Divider />
-              <Button size='small' fullWidth onClick={this.handleMoreClick}>
-                {this.state.more ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </Button>
             </Paper>
           </Grid>
         </Grid>
@@ -546,6 +537,7 @@ const mapActionsToProps = {
   unlikePost,
   commentPost,
   deletePost,
+  getPost,
 };
 export default connect(
   mapStateToProps,

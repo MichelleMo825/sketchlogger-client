@@ -11,6 +11,8 @@ import {
   SET_SUCCEED,
   DELETE_POST,
   LOAD_POST,
+  CLEAR_ERRORS,
+  OPEN_POST_DIALOG,
 } from '../types';
 import request from '../../util/request';
 export const getPosts = () => (dispatch) => {
@@ -20,7 +22,22 @@ export const getPosts = () => (dispatch) => {
     dispatch(setPosts(data.posts));
   });
 };
+export const getPost = (id) => (dispatch) => {
+  request({method: 'get', url: `/post?id=${id}`}).then((data) => {
+    dispatch({
+      type: LOAD_POST,
+      payload: data,
+    });
 
+    dispatch({
+      type: OPEN_POST_DIALOG,
+    });
+
+    dispatch({
+      type: CLEAR_ERRORS,
+    });
+  });
+};
 export const getUserPosts = (username) => (dispatch) => {
   dispatch({type: LOADING_DATA});
 

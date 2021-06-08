@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 //mui
 import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
 import Slide from '@material-ui/core/Slide';
 //redux
 import {connect} from 'react-redux';

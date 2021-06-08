@@ -5,29 +5,12 @@ import {
   EDIT_POST,
   UPDATE_POST,
   ADD_POST,
-  LOAD_POST,
-  CLEAR_ERRORS,
 } from '../types';
 
 import request from '../../util/request';
 
 export const close = () => (dispatch) => {
   dispatch({type: SET_CLOSE});
-};
-
-export const getPost = (id) => (dispatch) => {
-  dispatch({type: LOADING_UI});
-  request({method: 'get', url: `/post?id=${id}`}).then((data) => {
-    console.log(data);
-    dispatch({
-      type: LOAD_POST,
-      payload: data,
-    });
-
-    dispatch({
-      type: CLEAR_ERRORS,
-    });
-  });
 };
 
 export const newPost = (post) => (dispatch) => {

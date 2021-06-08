@@ -68,6 +68,17 @@ const styles = (theme) => ({
 });
 export class Reply extends Component {
   state = {openDelete: false};
+
+  ref = React.createRef();
+
+  componentDidMount() {
+    const focus = this.props.UI.focus;
+
+    if (focus.type == 'reply' && focus.id == this.props.reply.id) {
+      this.ref.current.scrollIntoView({block: 'center'});
+    }
+  }
+
   handleDeleteReply = () => {
     this.props.deleteReply(this.props.reply.id);
     this.setState({openDelete: false});
@@ -82,7 +93,7 @@ export class Reply extends Component {
       reply: {avatar, username, body, created},
     } = this.props;
     return (
-      <div className={classes.root}>
+      <div className={classes.root} ref={this.ref}>
         <div className={classes.container}>
           <div item ms={1} xs={2}>
             <Link href={`/user/${username}`} underline='none'>
@@ -132,6 +143,7 @@ export class Reply extends Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  UI: state.UI,
 });
 
 const mapActionsToProps = {

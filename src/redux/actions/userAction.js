@@ -8,6 +8,8 @@ import {
   SET_FOLLOWUSERS,
   UNSET_LOGIN,
   SET_AUTHENTICATED,
+  UNSET_USERS_PANEL,
+  SET_USERS_PANEL,
 } from '../types';
 import axios from 'axios';
 import request from '../../util/request';
@@ -82,17 +84,12 @@ export const changePassword = (data) => (dispatch) => {
     });
 };
 export const getUserData = () => (dispatch) => {
-  axios
-    .get('/currentUser')
-    .then((res) => {
-      dispatch({
-        type: SET_USER,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+  request({method: 'get', url: '/currentUser'}).then((data) => {
+    dispatch({
+      type: SET_USER,
+      payload: data,
     });
+  });
 };
 
 export const getFollowers = (username) => (dispatch) => {
@@ -101,6 +98,10 @@ export const getFollowers = (username) => (dispatch) => {
   request({method: 'get', url: `/user/follower?username=${username}`}).then(
     (data) => {
       dispatch({type: SET_FOLLOWUSERS, payload: data.users});
+      dispatch({
+        type: SET_USERS_PANEL,
+        payload: 'follower',
+      });
     }
   );
 };
@@ -111,6 +112,10 @@ export const getFollowings = (username) => (dispatch) => {
   request({method: 'get', url: `/user/following?username=${username}`}).then(
     (data) => {
       dispatch({type: SET_FOLLOWUSERS, payload: data.users});
+      dispatch({
+        type: SET_USERS_PANEL,
+        payload: 'following',
+      });
     }
   );
 };
@@ -175,4 +180,18 @@ export const resetUserPassword = (token, password) => (dispatch) => {
       payload: 'password reset successfully, please loging and enjoy',
     });
   });
+};
+
+export const closeUsersPanel = () => (dispatch) => {
+  dispatch({
+    type: UNSET_USERS_PANEL,
+  });
+};
+
+export const readNotification = (id) => (dispatch) => {
+  request({
+    method: 'post',
+    url: `/notification?id=${id}`,
+  });
+  dispatch(getUserData());
 };

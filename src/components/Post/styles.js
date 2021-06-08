@@ -88,12 +88,6 @@ export const styles = (theme) => ({
         maxHeight: '100%',
       },
     },
-
-    '& img': {
-      objectFit: 'cover',
-      height: '100%',
-      width: '100%',
-    },
   },
 
   tile: {
@@ -101,6 +95,12 @@ export const styles = (theme) => ({
 
     [theme.breakpoints.down('xs')]: {
       height: 'calc((100vw ) /3) !important',
+    },
+
+    '& img': {
+      objectFit: 'cover',
+      height: '100%',
+      width: '100%',
     },
   },
   description: {
@@ -220,17 +220,17 @@ export const styles = (theme) => ({
   //   overflowY: 'auto',
   // },
 
-  commentInput: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+  commentForm: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    padding: theme.spacing(1),
   },
 
-  submitComment: {
-    display: 'flex',
-    justifyContent: 'space-between',
-
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+  commentButton: {
+    height: theme.spacing(3.5),
+    marginLeft: theme.spacing(1),
   },
 
   noComments: {

@@ -5,6 +5,11 @@ import {
   SET_SUCCEED,
   SET_LOGIN,
   UNSET_LOGIN,
+  SET_USERS_PANEL,
+  UNSET_USERS_PANEL,
+  OPEN_POST_DIALOG,
+  CLOSE_POST_DIALOG,
+  SET_FOCUS,
 } from '../types';
 
 const initialState = {
@@ -13,6 +18,10 @@ const initialState = {
   success: false,
   successMessage: '',
   login: false, //show login component
+  openUsersPanel: false,
+  UsersPanelType: '',
+  openPostDialog: false,
+  focus: {},
 };
 
 export default function (state = initialState, action) {
@@ -55,6 +64,39 @@ export default function (state = initialState, action) {
       return {
         ...state,
         login: false,
+      };
+    }
+    case SET_USERS_PANEL: {
+      return {
+        ...state,
+        loading: false,
+        openUsersPanel: true,
+        UsersPanelType: action.payload,
+      };
+    }
+    case UNSET_USERS_PANEL: {
+      return {
+        ...state,
+        openUsersPanel: false,
+      };
+    }
+    case OPEN_POST_DIALOG: {
+      return {
+        ...state,
+        openPostDialog: true,
+      };
+    }
+    case CLOSE_POST_DIALOG: {
+      return {
+        ...state,
+        openPostDialog: false,
+        focus: {},
+      };
+    }
+    case SET_FOCUS: {
+      return {
+        ...state,
+        focus: action.payload,
       };
     }
     default:

@@ -102,6 +102,16 @@ export class Comment extends Component {
     openDelete: false,
     reply: '',
   };
+
+  ref = React.createRef();
+
+  componentDidMount() {
+    const focus = this.props.UI.focus;
+
+    if (focus.type == 'comment' && focus.id == this.props.comment.id) {
+      this.ref.current.scrollIntoView({block: 'center'});
+    }
+  }
   handleReadmore = () => {
     this.setState({expanded: !this.state.expanded});
   };
@@ -130,7 +140,7 @@ export class Comment extends Component {
       comment: {username, avatar, content, created, replies},
     } = this.props;
     return (
-      <div className={classes.root}>
+      <div className={classes.root} ref={this.ref}>
         <div className={classes.container}>
           <div className={classes.left}>
             <Link href={`/user/${username}`} underline='none'>
@@ -230,6 +240,7 @@ export class Comment extends Component {
 }
 const mapStateToProps = (state) => ({
   user: state.user,
+  UI: state.UI,
 });
 const mapActionsToProps = {
   deleteComment,

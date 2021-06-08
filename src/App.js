@@ -20,13 +20,15 @@ import resendConfirmation from './pages/resendConfirmation';
 import checkEmail from './pages/checkEmail';
 import forgetPassword from './pages/forgetPassword';
 import resetPassword from './pages/resetPassword';
-import post from './pages/post';
+
 //components
 import Navbar from './components/Navbar';
 import Feedback from './components/Feedback';
 import PostEditor from './components/PostEditor';
 import IconMenu from './components/IconMenu';
 import MiniLogin from './components/MiniLogin';
+import UsersPanel from './components/UsersPanel';
+import PostDialog from './components/PostDialog';
 //others
 import {SET_AUTHENTICATED} from './redux/types';
 import {theme} from './util/style';
@@ -58,7 +60,7 @@ function App() {
                 <Route exact path='/settings' component={settings} />
                 <Route exact path='/login' component={login} />
                 <Route exact path='/signup' component={signup} />
-                <Route path='/post/:postId' component={post} />
+
                 <Route
                   exact
                   path='/resendConfirmation'
@@ -79,6 +81,8 @@ function App() {
           <Feedback />
           <PostEditor />
           <MiniLogin />
+          <UsersPanel />
+          <PostDialog />
         </Provider>
       </MuiThemeProvider>
     </div>

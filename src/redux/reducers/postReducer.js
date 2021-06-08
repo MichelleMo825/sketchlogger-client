@@ -16,21 +16,19 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case SET_CLOSE:
       return {
+        ...state,
         open: false,
+      };
+
+    case NEW_POST:
+      return {
         files: [],
         description: '',
         tags: [],
         images: [],
         errors: {},
-      };
-    case LOAD_POST:
-      return {
-        ...state,
-        ...action.payload,
-      };
-    case NEW_POST:
-      return {
-        ...state,
+        likes: [],
+        comments: [],
         new: true,
         open: true,
       };

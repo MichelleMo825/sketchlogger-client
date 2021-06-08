@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {isMobile} from 'react-device-detect';
-import {imageURL} from '../../../util/connect';
+import {imageURL} from '../util/connect';
 //mui
 import withStyle from '@material-ui/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
@@ -19,8 +19,8 @@ import CloseIcon from '@material-ui/icons/Close';
 
 //redux
 import {connect} from 'react-redux';
-import {follow, unfollow} from '../../../redux/actions/userAction';
-import {getUserInfo} from '../../../redux/actions/dataAction';
+import {follow, unfollow, closeUsersPanel} from '../redux/actions/userAction';
+import {getUserInfo} from '../redux/actions/dataAction';
 const styles = (theme) => ({
   root: {},
   avatar: {
@@ -53,7 +53,7 @@ const styles = (theme) => ({
   },
 });
 
-class FollowUsers extends Component {
+class UsersPanel extends Component {
   handleFollow = (id) => {
     this.props.follow(id);
     this.props.getUserInfo(this.props.user.username);
@@ -64,7 +64,10 @@ class FollowUsers extends Component {
     this.props.getUserInfo(this.props.user.username);
   };
   render() {
-    const {classes, onClose, type, users, open} = this.props;
+    const {classes, users} = this.props;
+    const open = this.props.UI.openUsersPanel;
+    const onClose = this.props.closeUsersPanel;
+    const type = this.props.UI.UsersPanelType;
 
     const Users = (
       <div className={classes.usersWrapper}>
@@ -179,14 +182,16 @@ const mapStateToProps = (state) => ({
   currentUser: state.user,
   users: state.data.followUsers,
   user: state.data.user,
+  UI: state.UI,
 });
 
 const mapActionsToProps = {
   follow,
   unfollow,
   getUserInfo,
+  closeUsersPanel,
 };
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(withStyle(styles)(FollowUsers));
+)(withStyle(styles)(UsersPanel));

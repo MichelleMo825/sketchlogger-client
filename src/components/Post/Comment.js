@@ -2,25 +2,23 @@ import React, {Component} from 'react';
 import {imageURL} from '../../util/connect';
 import dayjs from 'dayjs';
 //components
-import Reply from './Reply';
+
 import DeleteComfirmation from './DeleteComfirmation';
 //Mui
 import withStyle from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
+
 import Avatar from '@material-ui/core/Avatar';
-import Paper from '@material-ui/core/Paper';
+
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Collapse from '@material-ui/core/Collapse';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 
 //icons
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 //redux
 import {connect} from 'react-redux';
 import {deleteComment, replyComment} from '../../redux/actions/dataAction';
-import {TransferWithinAStationOutlined} from '@material-ui/icons';
 
 const styles = (theme) => ({
   root: {
@@ -34,25 +32,21 @@ const styles = (theme) => ({
   },
 
   left: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1.5),
   },
   right: {
     width: '100%',
   },
 
   avatar: {
-    margin: 'auto',
-    height: theme.spacing(5),
-    width: theme.spacing(5),
+    marginTop: theme.spacing(1),
+    height: theme.spacing(3),
+    width: theme.spacing(3),
   },
 
   username: {
     fontWeight: '600',
     color: theme.palette.secondary.main,
-  },
-
-  paper: {
-    padding: theme.spacing(1),
   },
 
   content: {
@@ -62,8 +56,6 @@ const styles = (theme) => ({
     width: '100%',
     // display: 'flex',
     // flexWrap: 'wrap',
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
   },
   created: {
     fontWeight: '300',
@@ -101,6 +93,7 @@ export class Comment extends Component {
     expanded: false,
     openDelete: false,
     reply: '',
+    openReply: false,
   };
   handleReadmore = () => {
     this.setState({expanded: !this.state.expanded});
@@ -127,7 +120,7 @@ export class Comment extends Component {
   render() {
     const {
       classes,
-      comment: {username, avatar, content, created, replies},
+      comment: {username, avatar, content, created},
     } = this.props;
     return (
       <div className={classes.root}>
@@ -178,42 +171,6 @@ export class Comment extends Component {
                   Delete
                 </Button>
               ) : null}
-            </div>
-
-            {/* replies */}
-            <div>
-              {replies
-                ? replies.map((reply) => <Reply reply={reply} key={reply.id} />)
-                : null}
-            </div>
-            {/* reply form */}
-            {/* <Grid container spacing={1}>
-                <Grid item xs={9} sm={9}>
-                  <TextField fullWidth />
-                </Grid>
-                <Grid item xs={3} sm={3}>
-                  <Button variant='outlined' size='small'>
-                    Reply
-                  </Button>
-                </Grid>
-              </Grid> */}
-
-            <div className={classes.replyForm}>
-              <TextField
-                fullWidth
-                value={this.state.reply}
-                onChange={this.handleReplyInputChange}
-                multiline
-              />
-              <div className={classes.replyButtonContainer}>
-                <Button
-                  className={classes.replyButton}
-                  variant='outlined'
-                  size='small'
-                  onClick={this.handleReplyComment}>
-                  Reply
-                </Button>
-              </div>
             </div>
           </div>
         </div>

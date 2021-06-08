@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 //incons
 import CreateIcon from '@material-ui/icons/Create';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 //components
 import Post from '../../components/Post';
 import Menu from './components/Menu';
@@ -34,7 +33,9 @@ export class Home extends Component {
     expanded: false,
   };
   componentDidMount() {
-    this.props.getUserInfo(this.props.user.username);
+    if (this.props.user.username !== '') {
+      this.props.getUserInfo(this.props.user.username);
+    }
 
     if (this.props.user.authenticated) {
       this.setState({selected: 0});

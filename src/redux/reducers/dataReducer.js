@@ -11,10 +11,20 @@ import {
   ADD_POST,
   DELETE_POST,
   SET_FOLLOWUSERS,
+  LOAD_POST,
 } from '../types';
 
 const initialState = {
   user: {id: undefined},
+  post: {
+    files: [],
+    description: '',
+    tags: [],
+    images: [],
+    likes: [],
+    errors: {},
+    comments: [],
+  }, //open post detail dialog
   posts: [],
   likes: [],
   works: [],
@@ -29,6 +39,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         posts: action.payload,
+        loading: false,
+      };
+    case LOAD_POST:
+      return {
+        ...state,
+        post: action.payload,
         loading: false,
       };
 
@@ -109,9 +125,14 @@ export default function (state = initialState, action) {
       };
 
     case UPDATE_POST:
-      const k = state.posts.findIndex((post) => post.id === action.payload.id);
+      let k = state.posts.findIndex((post) => post.id === action.payload.id);
       state.posts[k] = action.payload;
       state.tags = getTags(state.posts);
+
+      k = state.likes.findIndex((post) => post.id === action.payload.id);
+
+      state.likes[k] = action.payload;
+
       return {
         ...state,
       };

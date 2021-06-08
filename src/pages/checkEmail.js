@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
 
 import withStyle from '@material-ui/core/styles/withStyles';
-import Button from '@material-ui/core/Button';
 
 import {connect} from 'react-redux';
-import {verifyUser} from '../redux/actions/userAction';
 
 const styles = (theme) => ({
   root: {
@@ -18,7 +15,7 @@ const styles = (theme) => ({
 export class checkEmail extends Component {
   componentDidMount() {}
   render() {
-    const {classes, UI} = this.props;
+    const {classes} = this.props;
     return (
       <div className={classes.root}>
         <div>
